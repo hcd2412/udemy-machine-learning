@@ -1,0 +1,17 @@
+experiment:
+  name: simple_linear_salary
+  task: regression
+  random_state: 42
+
+data:
+  path: data/raw/regression/salary.csv
+  target: Salary
+  features: [YearsExperience]
+  test_size: 0.2
+
+model:
+  type: linear_regression
+  params: {}
+
+outputs:
+  dir: exports
