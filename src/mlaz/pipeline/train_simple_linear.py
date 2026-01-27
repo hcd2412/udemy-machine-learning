@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 import yaml
-from pathlib import Path
-
+import joblib
 import json
-from datetime import datetime
+from pathlib import Path
+from datetime import datetime, timezone
 
 from sklearn.linear_model import LinearRegression
 
@@ -14,9 +14,17 @@ from mlaz.evaluation.metrics import regression_metrics
 
 
 def train_from_config(config_path: str) -> None:
-    # Load config
+    project_root = Path(__file__).resolve().parents[3]
+
+    # Resolve config path
+    config_path = Path(config_path)
+    if not config_path.is_absolute():
+        config_path = (project_root / config_path).resolve()
+
     with open(config_path, "r") as f:
         cfg = yaml.safe_load(f)
+
+    run_id = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
 
     # Load data
     data_path = (project_root / cfg["data"]["path"]).resolve()
@@ -41,6 +49,13 @@ def train_from_config(config_path: str) -> None:
     model = LinearRegression(**cfg["model"]["params"])
     model.fit(X_train, y_train)
 
+    model_dir = project_root / "exports" / "models"
+    model_dir.mkdir(parents=True, exist_ok=True)
+
+    model_path = model_dir / f"{cfg['experiment']['name']}_{run_id}.joblib"
+    joblib.dump(model, model_path)
+    print("Saved model:", model_path)
+
     # Predictions
     y_train_pred = model.predict(X_train)
     y_test_pred = model.predict(X_test)
@@ -49,7 +64,6 @@ def train_from_config(config_path: str) -> None:
     train_metrics = regression_metrics(y_train, y_train_pred)
     test_metrics = regression_metrics(y_test, y_test_pred)
 
-    run_id = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
     out_dir = project_root / "exports" / "metrics"
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -74,6 +88,4 @@ def train_from_config(config_path: str) -> None:
 
 
 if __name__ == "__main__":
-    project_root = Path(__file__).resolve().parents[3]
-    config_file = project_root / "configs" / "regression" / "simple_linear.yaml"
-    train_from_config(str(config_file))
+    train_from_config("configs/regression/simple_linear.yaml")
