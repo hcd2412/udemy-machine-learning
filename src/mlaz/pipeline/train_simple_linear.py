@@ -11,6 +11,7 @@ from sklearn.linear_model import LinearRegression
 from mlaz.data.io import load_csv
 from mlaz.data.splits import split_features_target, train_test_split_xy
 from mlaz.evaluation.metrics import regression_metrics
+from mlaz.export.c_header import write_slr_coeffs_header
 
 
 def train_from_config(config_path: str) -> None:
@@ -86,6 +87,13 @@ def train_from_config(config_path: str) -> None:
     print("Train metrics:", train_metrics)
     print("Test metrics:", test_metrics)
 
+    write_slr_coeffs_header(
+        out_path=project_root / "deploy" / "embedded" / "slr_salary" / "model_coeffs_autogen.h",
+        header_guard="SLR_SALARY_MODEL_COEFFS_AUTOGEN_H",
+        intercept=float(model.intercept_),
+        coef=float(model.coef_[0]),
+    )
+    print("Saved C header:", project_root / "deploy" / "embedded" / "slr_salary" / "model_coeffs_autogen.h")
 
 if __name__ == "__main__":
     train_from_config("configs/regression/simple_linear.yaml")
