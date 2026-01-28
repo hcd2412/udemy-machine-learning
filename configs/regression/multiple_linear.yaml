@@ -1,0 +1,22 @@
+experiment:
+  name: multiple_linear_startups
+  task: regression
+  random_state: 42
+
+data:
+  path: data/raw/regression/startups.csv
+  target: Profit
+  numeric_features: ["R&D Spend", "Administration", "Marketing Spend"]
+  categorical_features: ["State"]
+  test_size: 0.2
+
+model:
+  type: linear_regression
+  params: {}
+
+outputs:
+  dir: exports
+
+deploy:
+  embedded_dir: deploy/embedded/mlr_startups
+  header_guard: MLR_STARTUPS_MODEL_COEFFS_AUTOGEN_H
