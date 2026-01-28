@@ -14,6 +14,7 @@ from sklearn.preprocessing import OneHotEncoder
 from mlaz.data.io import load_csv
 from mlaz.data.splits import split_features_target, train_test_split_xy
 from mlaz.evaluation.metrics import regression_metrics
+from mlaz.export.c_header import write_mlr_coeffs_header
 
 
 def train_from_config(config_path: str) -> None:
@@ -67,6 +68,33 @@ def train_from_config(config_path: str) -> None:
 
     # Train
     pipe.fit(X_train, y_train)
+
+    # Extract feature names after preprocessing (numeric + one-hot categories)
+    pre = pipe.named_steps["preprocess"]
+    cat_ohe = pre.named_transformers_["cat"]
+    cat_feature_names = list(cat_ohe.get_feature_names_out(cfg["data"]["categorical_features"]))
+
+    feature_names = cfg["data"]["numeric_features"] + cat_feature_names
+
+    # Extract coefficients from the linear model (must match feature order)
+    lr = pipe.named_steps["model"]
+    coefs = [float(c) for c in lr.coef_.ravel()]
+    intercept = float(lr.intercept_)
+
+    # Export embedded C header
+    deploy_cfg = cfg.get("deploy", {})
+    embedded_dir = deploy_cfg.get("embedded_dir", "deploy/embedded/mlr_startups")
+    header_guard = deploy_cfg.get("header_guard", "MLR_STARTUPS_MODEL_COEFFS_AUTOGEN_H")
+
+    header_path = project_root / embedded_dir / "model_coeffs_autogen.h"
+    write_mlr_coeffs_header(
+        out_path=header_path,
+        header_guard=header_guard,
+        intercept=intercept,
+        feature_names=feature_names,
+        coefs=coefs,
+    )
+    print("Saved C header:", header_path)
 
     # Predictions + metrics
     y_train_pred = pipe.predict(X_train)
