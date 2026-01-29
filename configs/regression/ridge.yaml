@@ -1,0 +1,18 @@
+experiment:
+  name: ridge_position_salary
+  task: regression
+  random_state: 42
+
+data:
+  path: data/raw/regression/position_salaries.csv
+  target: Salary
+  features: [Level]
+  test_size: 0.2
+
+model:
+  type: ridge
+  alpha: 1.0
+  fit_intercept: true
+
+outputs:
+  dir: exports
