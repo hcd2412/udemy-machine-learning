@@ -1,0 +1,20 @@
+experiment:
+  name: svr_position_salary
+  task: regression
+  random_state: 42
+
+data:
+  path: data/raw/regression/position_salaries.csv
+  target: Salary
+  features: [Level]
+  test_size: 0.2
+
+model:
+  type: svr
+  kernel: rbf
+  C: 100.0
+  epsilon: 0.1
+  gamma: scale
+
+outputs:
+  dir: exports
