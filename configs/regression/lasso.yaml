@@ -1,0 +1,19 @@
+experiment:
+  name: lasso_position_salary
+  task: regression
+  random_state: 42
+
+data:
+  path: data/raw/regression/position_salaries.csv
+  target: Salary
+  features: [Level]
+  test_size: 0.2
+
+model:
+  type: lasso
+  alpha: 0.1
+  fit_intercept: true
+  max_iter: 10000
+
+outputs:
+  dir: exports
