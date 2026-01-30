@@ -1,0 +1,20 @@
+experiment:
+  name: decision_tree_position_salary
+  task: regression
+  random_state: 42
+
+data:
+  path: data/raw/regression/position_salaries.csv
+  target: Salary
+  features: [Level]
+  test_size: 0.2
+
+model:
+  type: decision_tree_regressor
+  params:
+    max_depth: null
+    min_samples_split: 2
+    min_samples_leaf: 1
+
+outputs:
+  dir: exports
