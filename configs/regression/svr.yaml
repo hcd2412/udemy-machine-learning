@@ -12,9 +12,9 @@ data:
 model:
   type: svr
   kernel: rbf
-  C: 100.0
-  epsilon: 0.1
-  gamma: scale
+  C: 10000.0
+  epsilon: 1000.0
+  gamma: 1.0
 
 outputs:
   dir: exports
