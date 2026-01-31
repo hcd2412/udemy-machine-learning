@@ -122,6 +122,45 @@ This is intentionally **applied** (not textbook-heavy), because the goal is to b
 
 ---
 
+## 6) Random Forest Regression
+
+**Idea**
+- Ensemble of many decision trees trained on:
+  - bootstrap samples of the data
+  - random subsets of features
+- Final prediction = average of all tree predictions
+
+**Why it works well on Position_Salaries**
+- Captures strong nonlinearity without manual feature engineering
+- Reduces overfitting compared to a single Decision Tree
+- Averaging across trees smooths the step-wise behavior
+
+**Bias–variance intuition**
+- Single Decision Tree: low bias, very high variance
+- Random Forest: slightly higher bias, much lower variance → better generalization
+
+**What metrics showed in this repo**
+- Best test RMSE and highest test R² among all regression models
+- Clear improvement over:
+  - Polynomial regression (less overfitting)
+  - Decision Tree (less variance)
+  - SVR (more stable on tiny dataset)
+
+**Trade-offs**
+- Less interpretable than linear / polynomial models
+- Larger model size (not ideal for embedded deployment)
+- Hyperparameters (`n_estimators`, depth) matter for stability
+
+**Repo implementation**
+- Config-driven training (`random_forest.yaml`)
+- Same pipeline pattern as other regressors
+- Artifacts:
+  - model → `exports/models/`
+  - metrics → `exports/metrics/`
+- Included in automated regression comparison report
+
+---
+
 ## How to use this doc
 
 When you add a new regression model:
