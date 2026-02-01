@@ -42,6 +42,7 @@ def train_test_split_xy(
     *,
     test_size: float,
     random_state: int,
+    stratify: pd.Series | None = None,
 ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """
     Split features and target into train and test sets.
@@ -66,4 +67,5 @@ def train_test_split_xy(
         y,
         test_size=test_size,
         random_state=random_state,
+        stratify=stratify,
     )

@@ -1,0 +1,22 @@
+experiment:
+  name: logistic_regression_social_network_ads
+  task: classification
+  random_state: 42
+
+data:
+  path: data/raw/classification/social_network_ads.csv
+  target: Purchased
+  features: [Age, EstimatedSalary]
+  test_size: 0.25
+
+preprocess:
+  scale_features: true
+
+model:
+  type: logistic_regression
+  params:
+    solver: lbfgs
+    max_iter: 1000
+
+outputs:
+  dir: exports
