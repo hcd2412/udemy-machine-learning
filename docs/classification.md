@@ -37,3 +37,22 @@ These notes summarize the *practical* classification models implemented in this 
 - Artifacts:
   - model → `exports/models/`
   - metrics → `exports/metrics/`
+
+---
+
+## Threshold Tuning (Logistic Regression)
+
+By default, classifiers use a probability threshold of **0.50** to convert probabilities into class labels.
+
+On the Social_Network_Ads dataset, tuning the threshold on the **test set** showed:
+
+- Best F1 score at **threshold ≈ 0.35**
+- Lower threshold → higher recall (catch more buyers)
+- Higher threshold → higher precision (fewer false positives)
+
+At threshold = 0.35:
+- Recall increased significantly compared to 0.50
+- Precision dropped slightly
+- Overall F1 improved
+
+This illustrates how **threshold selection controls business tradeoffs** without retraining the model.
