@@ -1,22 +1,25 @@
-# Udemy Machine Learning — End-to-End Applied ML (Python → Embedded C)
+# Udemy Machine Learning — Fundamentals, Revision, and Reference Implementations
 
-This repository contains **hands-on machine learning implementations** based on the *Udemy Machine Learning A–Z* course, extended with **production-grade structure**, **evaluation**, and **embedded deployment**.
+This repository contains **structured implementations of classical machine learning techniques** based on the *Udemy Machine Learning A–Z* curriculum.
 
-The goal is not just to learn ML algorithms, but to demonstrate **end-to-end ML system design**, from data → model → metrics → deployment on constrained hardware.
+The purpose of this repository is **revision and reference**:
+- to revisit core ML algorithms,
+- to maintain long-term fluency in fundamentals,
+- and to explore how textbook models map to clean, reproducible code structures.
+
+More **applied, domain-driven projects** (forecasting, anomaly detection, operational analytics, smart-city use cases) are maintained in separate repositories.
 
 ---
 
-## 📌 What makes this repo different
+## 📌 Scope and Intent
 
-Most ML course repos stop at notebooks.  
-This repo goes further:
+This repository focuses on **foundational machine learning methods** and their correct, interpretable implementation.
 
-- ✅ Config-driven training pipelines (YAML)
-- ✅ Reproducible experiments
-- ✅ Proper train/test evaluation
-- ✅ Artifact persistence (models + metrics)
-- ✅ **Automatic export to Embedded C**
-- ✅ Ready for real-world / edge deployment discussions
+It is **not intended as a domain-specific production system**.  
+Instead, it serves as:
+- a fundamentals refresher,
+- a reference implementation library,
+- and a technical bridge between theory and applied projects elsewhere in this profile.
 
 ---
 
@@ -24,10 +27,10 @@ This repo goes further:
 
 ### 1️⃣ Simple Linear Regression (Salary Prediction)
 
-- Python training pipeline
-- Evaluation (MAE, RMSE, R²)
-- Auto-generated **C header** with model coefficients
-- Embedded inference in C
+- Python-based training pipeline
+- Standard evaluation metrics (MAE, RMSE, R²)
+- Explicit mapping from learned coefficients to deterministic inference logic
+- Optional export of coefficients for embedded / constrained environments
 
 📁 Location:
 ```
@@ -44,7 +47,7 @@ deploy/embedded/slr_salary/
 - One-hot encoding
 - Evaluation and model persistence
 - Auto-generated **C header** for multi-feature inference
-- Embedded C implementation
+- Optional embedded inference example
 
 📁 Location:
 ```
@@ -62,21 +65,21 @@ configs/        # Experiment configurations (YAML)
 data/           # Raw and processed datasets
 src/mlaz/       # Modular ML code (data, pipeline, evaluation, export)
 exports/        # Training artifacts (models, metrics)
-deploy/embedded # Embedded C inference examples
+deploy/embedded # Optional embedded inference examples
 ```
 
 ---
 
-## 🔁 Python → Embedded Deployment Flow
+## 🔁 Python → Embedded Mapping (Illustrative)
 
-1. Train model using a config-driven Python pipeline  
-2. Evaluate using standard regression metrics  
-3. Persist trained model and metrics artifacts  
-4. Automatically export learned coefficients to a C header  
-5. Run deterministic inference on embedded / edge targets  
+This repository includes **illustrative examples** showing how learned model
+parameters can be exported from Python and reused in deterministic,
+constrained environments.
 
-This ensures a **single source of truth** between Python experimentation  
-and deployed embedded inference.
+These examples are intended to:
+- clarify how ML models translate into simple numerical logic,
+- highlight deployment considerations at a conceptual level,
+- support understanding of ML beyond notebooks.
 
 ---
 
@@ -85,25 +88,23 @@ and deployed embedded inference.
 - Python, NumPy, Pandas, scikit-learn
 - YAML-based configuration
 - Joblib for model persistence
-- C (embedded-friendly inference)
+- C (embedded-friendly inference examples)
 - Git with clean branching strategy
 
 ---
 
-## 🎯 Why this matters
+## 🎯 How This Fits in the Broader Portfolio
 
 This repository demonstrates:
+- solid understanding of **machine learning fundamentals**
+- disciplined, readable implementation style
+- attention to evaluation and reproducibility
+- ability to reason about ML beyond notebooks
 
-- ML **fundamentals**
-- Software engineering discipline
-- Awareness of **deployment constraints**
-- Ability to explain ML beyond notebooks
-
-It is designed to support applications for:
-
-- **Senior / Applied Data Scientist**
-- **ML Engineer**
-- **AI / Analytics roles (UAE, GCC, global)**
+Applied, real-world projects are maintained separately and focus on:
+- fleet demand forecasting
+- operational anomaly detection
+- smart-city and transportation analytics
 
 ---
 
