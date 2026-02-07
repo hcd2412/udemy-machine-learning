@@ -1,13 +1,8 @@
-# Udemy Machine Learning — Fundamentals, Revision, and Reference Implementations
+# ML Algorithms Reference
 
-This repository contains **structured implementations of classical machine learning techniques** based on the *Udemy Machine Learning A–Z* curriculum.
+Curated, production-oriented reference implementations of core machine learning algorithms in Python.
 
-The purpose of this repository is **revision and reference**:
-- to revisit core ML algorithms,
-- to maintain long-term fluency in fundamentals,
-- and to explore how textbook models map to clean, reproducible code structures.
-
-More **applied, domain-driven projects** (forecasting, anomaly detection, operational analytics, smart-city use cases) are maintained in separate repositories.
+This repository is designed as a long-term technical reference: clean implementations, consistent structure, and reproducible runs — intended to support applied forecasting, anomaly detection, and decision systems projects.
 
 ---
 
